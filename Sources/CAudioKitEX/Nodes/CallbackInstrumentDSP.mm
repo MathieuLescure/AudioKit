@@ -21,6 +21,7 @@ public:
                                                   block:^(NSTimer * _Nonnull timer) {
                  consumer();
                  }];
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
 
     ~CallbackInstrumentDSP() {
