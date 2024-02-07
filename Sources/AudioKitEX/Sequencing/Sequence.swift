@@ -63,7 +63,7 @@ extension Array where Element == SequenceEvent {
 /// A value type for sequences.
 public struct NoteEventSequence: Equatable {
     /// Array of sequence notes
-    public var notes: [SequenceNote]
+    public var degrees: [SequenceNote]
     /// Array of sequenc events
     public var events: [SequenceEvent]
 
@@ -71,8 +71,8 @@ public struct NoteEventSequence: Equatable {
     /// - Parameters:
     ///   - notes: Array of sequence notes
     ///   - events: Array of sequence events
-    public init(notes: [SequenceNote] = [], events: [SequenceEvent] = []) {
-        self.notes = notes
+    public init(degrees: [SequenceNote] = [], events: [SequenceEvent] = []) {
+        self.degrees = degrees
         self.events = events
     }
 
@@ -100,7 +100,7 @@ public struct NoteEventSequence: Equatable {
         newNote.noteOff.data2 = velocity
         newNote.noteOff.beat = position + duration
 
-        notes.append(newNote)
+        degrees.append(newNote)
     }
 
     /// Remove event that occurs at a specific time
@@ -112,13 +112,13 @@ public struct NoteEventSequence: Equatable {
     /// Remove note that occurs at a specific time
     /// - Parameter position: Time of the note
     public mutating func removeNote(at position: Double) {
-        notes.removeAll { $0.noteOn.beat == position }
+        degrees.removeAll { $0.noteOn.beat == position }
     }
 
     /// Remove all occurences of a certain MIDI Note nUmber
     /// - Parameter noteNumber: Note to remove
     public mutating func removeAllInstancesOf(noteNumber: MIDINoteNumber) {
-        notes.removeAll { $0.noteOn.data1 == noteNumber }
+        degrees.removeAll { $0.noteOn.data1 == noteNumber }
     }
 
     /// Add MIDI data to the track as an event
@@ -140,7 +140,7 @@ public struct NoteEventSequence: Equatable {
         allEvents.append(contentsOf: events)
         /// Get all SequenceEvents from Notes
         var noteEvents: [SequenceEvent] = []
-        notes.forEach { note in
+        degrees.forEach { note in
             noteEvents.append(note.noteOn)
             noteEvents.append(note.noteOff)
         }

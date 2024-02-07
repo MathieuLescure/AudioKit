@@ -25,7 +25,7 @@ class NoteEventSequenceTests: XCTestCase {
         newNote.noteOff.data2 = 127
         newNote.noteOff.beat = 2.0
         
-        XCTAssertEqual(seq, NoteEventSequence(notes: [newNote], events: []))
+        XCTAssertEqual(seq, NoteEventSequence(degrees: [newNote], events: []))
     }
 
     func testRemoveNote() {
@@ -36,7 +36,7 @@ class NoteEventSequenceTests: XCTestCase {
         seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
         seq.removeNote(at: 0.1)
 
-        XCTAssertEqual(seq.notes.count, 2)
+        XCTAssertEqual(seq.degrees.count, 2)
     }
 
     func testRemoveInstances() {
@@ -47,9 +47,9 @@ class NoteEventSequenceTests: XCTestCase {
         seq.add(noteNumber: 63, position: 0.2, duration: 0.1)
         seq.removeAllInstancesOf(noteNumber: 63)
 
-        XCTAssertEqual(seq.notes.count, 2)
-        XCTAssertEqual(seq.notes[0].noteOn.data1, 60)
-        XCTAssertEqual(seq.notes[1].noteOn.data1, 62)
+        XCTAssertEqual(seq.degrees.count, 2)
+        XCTAssertEqual(seq.degrees[0].noteOn.data1, 60)
+        XCTAssertEqual(seq.degrees[1].noteOn.data1, 62)
     }
 
 }
